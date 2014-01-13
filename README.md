@@ -27,16 +27,24 @@ bower components can be installed by adding a
 You can specify where bower components will be installed with:
 
 ```clojure
-:bower-directory "resources/public/js/lib"
+:bower {:directory "resources/public/js/lib"}
 ```
+
+You can also specify what filenames to use for bower configuration:
+
+```clojure
+:bower {:package-file "bower.json", :config-file ".bowerrc"}
+```
+
+Users of bower versions prior to v0.9.0 may want to set `:package-file` to `"component.json"`. Default filenames are `bower.json` and `.bowerrc`.
 
 ## Invoking Bower
 
 You can execute Bower commands that require the presence of two files
-`component.json` and `.bowerrc` using the `lein bower` command. This command
+`bower.json` and `.bowerrc` using the `lein bower` command. This command
 creates temporary versions of those files based on your `project.clj` before
 invoking the Bower command you specify. The keys `name`, `description`, `version`
-and `bower-dependencies` are automatically added to `component.json`.
+and `bower-dependencies` are automatically added to `bower.json`.
 The key `bower-directory` is automatically added to `.bowerrc`.
 
 ```sh
