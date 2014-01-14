@@ -12,7 +12,7 @@
 (defn project->bowerrc
   [project]
   (json/generate-string
-   {:directory (project :bower-directory)}))
+   {:directory (get-in project [:bower :directory])}))
 
 (defn project->component
   [project]
@@ -27,27 +27,35 @@
   [project & args]
   (exec (project :root) (cons "bower" args)))
 
+(defn bower-package-file
+  [project]
+  (get-in project [:bower :package-file] "bower.json"))
+
+(defn bower-config-file
+  [project]
+  (get-in project [:bower :config-file] ".bowerrc"))
+
 (defn bower
   "Invoke the Bower component manager."
   ([project]
-     (environmental-consistency project "component.json" ".bowerrc")
+     (environmental-consistency project (bower-package-file project) (bower-config-file project))
      (println (help/help-for "bower"))
      (main/abort))
   ([project & args]
-     (environmental-consistency project "component.json" ".bowerrc")
+     (environmental-consistency project)
      (with-json-file
-    "component.json" (project->component project) project
-    (with-json-file
-      ".bowerrc" (project->bowerrc project) project
-      (apply invoke project args)))))
+       (bower-package-file project) (project->component project) project
+       (with-json-file
+         (bower-config-file project) (project->bowerrc project) project
+         (apply invoke project args)))))
 
 (defn install-deps
   [project]
   (environmental-consistency project)
   (with-json-file
-    "component.json" (project->component project) project
+    (bower-package-file project) (project->component project) project
     (with-json-file
-      ".bowerrc" (project->bowerrc project) project
+      (bower-config-file project) (project->bowerrc project) project
       (invoke project "run-script" "bower"))))
 
 (defn wrap-deps
