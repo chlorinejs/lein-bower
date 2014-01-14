@@ -1,4 +1,4 @@
-(defproject lein-bower "0.1.0"
+(defproject lein-bower "0.2.0-SNAPSHOT"
   :description "Manage Bower dependencies for CLJS projects"
   :url "https://github.com/myguidingstar/lein-bower"
   :license {:name "Apache License, version 2.0"
