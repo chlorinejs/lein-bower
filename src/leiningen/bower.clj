@@ -35,6 +35,12 @@
   [project]
   (get-in project [:bower :config-file] ".bowerrc"))
 
+(defn bower-debug
+  [project filename generator]
+  (with-json-file filename (generator project) project
+    (println (str "lein-bower generated " filename ":\n"))
+    (println (slurp filename))))
+
 (defn bower
   "Invoke the Bower component manager."
   ([project]
@@ -43,11 +49,16 @@
      (main/abort))
   ([project & args]
      (environmental-consistency project)
-     (with-json-file
-       (bower-package-file project) (project->component project) project
-       (with-json-file
-         (bower-config-file project) (project->bowerrc project) project
-         (apply invoke project args)))))
+     (cond (= ["pprint"] args)
+           (do (bower-debug project (bower-package-file project) project->bowerrc)
+               (println)
+               (bower-debug project (bower-config-file project) project->component))
+           :else
+           (with-json-file
+             (bower-package-file project) (project->component project) project
+             (with-json-file
+               (bower-config-file project) (project->bowerrc project) project
+               (apply invoke project args))))))
 
 (defn install-deps
   [project]
