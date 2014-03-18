@@ -53,6 +53,21 @@ $ lein bower ls             # lists installed dependencies
 $ lein bower search angular # searches for packages containing "angular"
 ```
 
+Because lein-bower automatically generates and cleans up bower config files on
+each execution, you may find it useful to peek at their contents when
+troubleshooting, using the `lein bower pprint` command. For example:
+
+```sh
+$ lein bower pprint
+lein-bower generated bower.json:
+
+{"directory":"resources/lib"}
+
+lein-bower generated .bowerrc:
+
+{"name":"foo","description":"My Application","version":"0.1.0-SNAPSHOT","dependencies":{"react":"0.8.0","backbone":"1.1.0"}
+```
+
 ## License
 
 Copyright 2013 Hoang Minh Thang
