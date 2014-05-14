@@ -7,7 +7,8 @@
             [leiningen.npm.deps :refer [resolve-node-deps]]
             [leiningen.npm.process :refer [exec]]
             [robert.hooke]
-            [leiningen.deps]))
+            [leiningen.deps]
+            [clojure.java.io :as io]))
 
 (defn project->bowerrc
   [project]
@@ -25,7 +26,9 @@
 
 (defn- invoke
   [project & args]
-  (exec (project :root) (cons "bower" args)))
+  (let [local-bower (io/as-file "./node_modules/bower/bin/bower")
+        cmd (if (.exists local-bower) (.getPath local-bower) "bower")]
+    (exec (project :root) (cons cmd args))))
 
 (defn bower-package-file
   [project]
