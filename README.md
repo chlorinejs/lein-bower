@@ -30,6 +30,10 @@ You can specify where bower components will be installed with:
 :bower {:directory "resources/public/js/lib"}
 ```
 
+`lein-bower` has different *default value* for bower directory from bower
+itself: if not specified, your assets will go into `resources/public/vendor`
+(in contrast with bower, whose default directory is `components/`)
+
 You can also specify what filenames to use for bower configuration:
 
 ```clojure
