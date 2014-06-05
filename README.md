@@ -74,7 +74,7 @@ lein-bower generated .bowerrc:
 
 ## License
 
-Copyright 2013 Hoang Minh Thang
+Copyright 2013-2014 Hoang Minh Thang
 
 Licensed under the Apache License, Version 2.0 (the "License"); you
 may not use this file except in compliance with the License. You may
