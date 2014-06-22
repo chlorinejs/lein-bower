@@ -13,7 +13,8 @@
 (defn project->bowerrc
   [project]
   (json/generate-string
-   {:directory (get-in project [:bower :directory] "resources/public/vendor")}))
+   {:directory (get-in project [:bower :directory] "resources/public/vendor")
+    :scripts (get-in project [:bower :scripts] {})}))
 
 (defn project->component
   [project]
