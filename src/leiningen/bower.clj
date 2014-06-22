@@ -54,9 +54,9 @@
   ([project & args]
      (environmental-consistency project)
      (cond (= ["pprint"] args)
-           (do (bower-debug project (bower-package-file project) project->bowerrc)
+           (do (bower-debug project (bower-package-file project) project->component)
                (println)
-               (bower-debug project (bower-config-file project) project->component))
+               (bower-debug project (bower-config-file project) project->bowerrc))
            :else
            (with-json-file
              (bower-package-file project) (project->component project) project
