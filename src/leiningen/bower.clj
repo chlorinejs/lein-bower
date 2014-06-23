@@ -13,7 +13,8 @@
 (defn project->bowerrc
   [project]
   (json/generate-string
-   {:directory (get-in project [:bower :directory] "resources/public/vendor")}))
+   {:directory (get-in project [:bower :directory] "resources/public/vendor")
+    :scripts (get-in project [:bower :scripts] {})}))
 
 (defn project->component
   [project]
@@ -53,9 +54,9 @@
   ([project & args]
      (environmental-consistency project)
      (cond (= ["pprint"] args)
-           (do (bower-debug project (bower-package-file project) project->bowerrc)
+           (do (bower-debug project (bower-package-file project) project->component)
                (println)
-               (bower-debug project (bower-config-file project) project->component))
+               (bower-debug project (bower-config-file project) project->bowerrc))
            :else
            (with-json-file
              (bower-package-file project) (project->component project) project
