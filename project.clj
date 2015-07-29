@@ -3,5 +3,5 @@
   :url "https://github.com/myguidingstar/lein-bower"
   :license {:name "Apache License, version 2.0"
             :url "http://www.apache.org/licenses/LICENSE-2.0.html"}
-  :dependencies [[lein-npm "0.4.0"]]
+  :dependencies [[lein-npm "0.6.1"]]
   :eval-in-leiningen true)
