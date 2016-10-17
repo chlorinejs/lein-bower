@@ -9,6 +9,14 @@ To enable lein-bower for your project, put the following in the
 
 ![Latest version](https://clojars.org/lein-bower/latest-version.svg)
 
+## Linking Bower
+
+lein-bower depends on a real Bower installation on your system.
+
+By default, if no Bower installation is found on first run, lein-bower will automatically install it locally through lein-npm. This can be disabled by setting `:bower {:install-missing-bower false}`.
+
+Alternatively, if you want to associate your project with an external Bower installation, configure `:location` with a path to Bower. This can be either a path to a Bower directory (one that contains `bin/bower`) or a path to the `bower` executable itself.
+
 ## Managing Bower dependencies
 
 Like [NPM](https://github.com/bodil/lein-npm) dependencies,
